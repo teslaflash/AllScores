@@ -1,8 +1,10 @@
 package com.teslaflash.allscores.ui.playerList
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Button
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -10,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.textfield.TextInputEditText
 import com.teslaflash.allscores.EditPlayerActivity
 import com.teslaflash.allscores.R
 import com.teslaflash.allscores.database.ScoresMatch
@@ -44,6 +47,17 @@ class PlayerListFragment : Fragment() {
             adapter.submitList(t)
         })
 
+        val builder:AlertDialog.Builder = AlertDialog.Builder(context)
+        val builderView:View = inflater.inflate(R.layout.money_dialog,null,false)
+        builder.setCancelable(true)
+        builder.setView(builderView)
+
+        val textView:TextInputEditText = builderView.findViewById(R.id.moneyET)
+        val buttonOK:Button = builderView.findViewById(R.id.okButton)
+        val buttonCancel:Button = builderView.findViewById(R.id.cancelBT)
+
+        val alertDialog:AlertDialog = builder.create()
+
         adapter.setOnClickerListener(object : PlayerListAdapter.OnItemClickListener {
             override fun onItemClick(position: Int) {
                 val intent = Intent(activity, EditPlayerActivity::class.java)
@@ -66,19 +80,56 @@ class PlayerListFragment : Fragment() {
 
         adapter.setOnIncreaseListener(object : PlayerListAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                var item = adapter.currentList[position]
-                item.balance = item.balance + 100
-                scoresViewModel.update(item)
-                adapter.notifyDataSetChanged()
+
+                buttonOK.text = "Прибавить"
+
+                buttonOK.setOnClickListener {
+                    var moneyText:Int? = textView.text.toString().toInt()
+                    if (moneyText != null) {
+                        var item = adapter.currentList[position]
+                        item.balance = item.balance + moneyText
+                        scoresViewModel.update(item)
+                        adapter.notifyDataSetChanged()
+                        alertDialog.cancel()
+                        alertDialog.dismiss()
+                    } else {
+                        Toast.makeText(context, "Введите число", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                buttonCancel.setOnClickListener {
+                    alertDialog.cancel()
+                    alertDialog.dismiss()
+                }
+                alertDialog.show()
+
             }
         })
 
         adapter.setOnDecreaseListener(object : PlayerListAdapter.OnItemClickListener{
             override fun onItemClick(position: Int) {
-                var item = adapter.currentList[position]
-                item.balance = item.balance - 100
-                scoresViewModel.update(item)
-                adapter.notifyDataSetChanged()
+
+                buttonOK.text = "Вычесть"
+
+                buttonOK.setOnClickListener {
+                    var moneyText:Int? = textView.text.toString().toInt()
+                    if (moneyText != null) {
+                        var item = adapter.currentList[position]
+                        item.balance = item.balance - moneyText
+                        scoresViewModel.update(item)
+                        adapter.notifyDataSetChanged()
+                        alertDialog.cancel()
+                        alertDialog.dismiss()
+                    } else {
+                        Toast.makeText(context, "Введите число", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                buttonCancel.setOnClickListener {
+                    alertDialog.cancel()
+                    alertDialog.dismiss()
+                }
+                alertDialog.show()
             }
         })
 

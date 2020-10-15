@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.teslaflash.allscores.database.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
 
 class ScoresViewModel(application: Application):AndroidViewModel(application) {
 
