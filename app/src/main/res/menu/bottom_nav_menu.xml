@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/matchList"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/match_list" />
+
+    <item
+        android:id="@+id/playerList"
+        android:icon="@drawable/ic_dashboard_black_24dp"
+        android:title="@string/player_list" />
+
+    <item
+        android:id="@+id/transactionList"
+        android:icon="@drawable/ic_notifications_black_24dp"
+        android:title="@string/transaction_list" />
+
+</menu>

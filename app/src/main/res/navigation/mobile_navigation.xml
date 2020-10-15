@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/matchList">
+
+    <fragment
+        android:id="@+id/matchList"
+        android:name="com.teslaflash.allscores.ui.matchList.MatchListFragment"
+        android:label="@string/match_list"
+        tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/playerList"
+        android:name="com.teslaflash.allscores.ui.playerList.PlayerListFragment"
+        android:label="@string/player_list"
+        tools:layout="@layout/fragment_list" />
+
+    <fragment
+        android:id="@+id/transactionList"
+        android:name="com.teslaflash.allscores.ui.transactionList.TransactionListFragment"
+        android:label="@string/transaction_list"
+        tools:layout="@layout/fragment_list" />
+</navigation>
